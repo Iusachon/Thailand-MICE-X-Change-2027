@@ -1,0 +1,1374 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCIA × TMX 2027 | 부산 MICE 해외시장개척단 참가기업 모집</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        },
+                        charcoal: '#1e293b'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --color-primary: #0284c7;
+            --color-secondary: #1e293b;
+            --color-accent: #0ea5e9;
+            --color-background: #f8fafc;
+            --color-surface: #ffffff;
+        }
+
+        body { 
+            background-color: var(--color-background); 
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* View Transitions */
+        .view-container { display: none; opacity: 0; transition: opacity 0.4s ease-in-out; }
+        .view-container.active { display: block; opacity: 1; }
+        .step-container { display: none; opacity: 0; transform: translateY(10px); transition: all 0.3s ease-in-out; }
+        .step-container.active { display: block; opacity: 1; transform: translateY(0); }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Form Custom Styling */
+        .option-card { 
+            transition: all 0.2s; 
+            border: 1px solid #e2e8f0; 
+            background-color: var(--color-surface);
+        }
+        .option-input:checked + .option-card {
+            border-color: var(--color-primary); 
+            background-color: #f0f9ff; 
+            color: var(--color-primary); 
+            box-shadow: 0 0 0 1px var(--color-primary);
+        }
+        .option-input:focus-visible + .option-card {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* Admin Nav */
+        .admin-nav-item.active { border-bottom: 2px solid var(--color-primary); color: var(--color-primary); font-weight: 600; }
+
+        /* Floating Mobile Nav */
+        @media (max-width: 768px) {
+            .mobile-floating-nav {
+                position: fixed; bottom: 0; left: 0; right: 0;
+                background: white; border-top: 1px solid #e2e8f0;
+                padding: 1rem; z-index: 40;
+                box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05);
+            }
+            #survey-area { padding-bottom: 100px; }
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Global CONFIG & Logic Injection -->
+    <script>
+        // 1. CONFIG: 향후 수정이 용이하도록 지원조건 및 환경설정 분리
+        const CONFIG = {
+            applicationDeadline: null, // "2027-02-28" 등 입력 시 자동 적용
+            targetCompanies: 15,
+            applicationType: "BCIA 회원사",
+            airfareSupport: "왕복 항공료 전액 지원",
+            accommodationSupport: "지원하지 않음",
+            localTransportationSupport: "지원",
+            selfPaymentRequired: "일부 자부담",
+            selectionAuthority: "부산경제진흥원"
+        };
+    </script>
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="location.reload()">
+                <!-- BCIA SVG Logo (Typographical representation for clean look) -->
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="40" height="40" rx="8" fill="#1e293b"/>
+                    <path d="M12 14H18C19.6569 14 21 15.3431 21 17C21 18.271 19.82 19.3444 18.2863 19.7431C20.4074 20.0075 22 21.8037 22 24C22 26.2091 20.2091 28 18 28H12V14Z" fill="white"/>
+                    <path d="M28 28C25.7909 28 24 26.2091 24 24C24 21.7909 25.7909 20 28 20" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <div class="flex flex-col">
+                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-1">Busan Convention Industry Association</span>
+                    <h1 class="text-base font-bold text-charcoal leading-none">BCIA × TMX 2027</h1>
+                </div>
+            </div>
+            <button onclick="toggleAdminMode()" class="text-xs font-medium px-3 py-1.5 rounded bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors flex items-center gap-1">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                Admin
+            </button>
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- USER VIEW (Landing & Survey) -->
+    <!-- ========================================== -->
+    <main id="user-view" class="view-container active flex-grow w-full">
+        
+        <!-- STEP 0: Landing Page -->
+        <div id="step-0" class="step-container active w-full">
+            
+            <!-- Hero Section -->
+            <div class="relative bg-charcoal text-white pt-24 pb-20 px-4 text-center overflow-hidden">
+                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+                <div class="relative max-w-4xl mx-auto z-10">
+                    <span class="inline-block px-3 py-1 bg-brand-600/20 border border-brand-500/30 text-brand-400 text-xs font-bold rounded-full mb-6 tracking-widest uppercase">Business Delegation</span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight leading-tight">
+                        Thailand MICE X-Change 2027<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-200">부산 MICE 해외시장개척단</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-300 mb-10 font-light max-w-2xl mx-auto">
+                        태국 MICE 시장 진출과 국제 비즈니스 네트워크 확대를 위한 BCIA 회원사 참가기업 수요조사
+                    </p>
+                    
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-6 text-sm font-medium text-slate-300 mb-12 bg-white/5 p-4 rounded-2xl backdrop-blur-sm border border-white/10 w-fit mx-auto">
+                        <div class="flex items-center gap-2"><svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> 2027.04.29 - 04.30</div>
+                        <div class="hidden md:block w-px h-4 bg-white/20"></div>
+                        <div class="flex items-center gap-2"><svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg> IMPACT Exhibition & Convention Centre, Bangkok</div>
+                    </div>
+
+                    <button onclick="goToStep(1)" class="px-8 py-4 bg-brand-600 text-white font-bold text-lg rounded-xl shadow-xl hover:bg-brand-500 hover:-translate-y-1 transition-all w-full md:w-auto flex items-center justify-center gap-2 mx-auto">
+                        참가 신청 및 수요조사 시작하기
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TMX 2027 Core Info -->
+            <div class="bg-white py-20 px-4">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold text-charcoal mb-4">TMX 2027 Key Programs</h2>
+                        <p class="text-slate-500">태국 MICE 산업의 허브에서 열리는 4가지 핵심 프로그램에 참여하세요.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100 hover:shadow-lg transition-all group">
+                            <div class="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6 text-brand-600 group-hover:scale-110 transition-transform"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg></div>
+                            <h3 class="font-bold text-lg mb-3 text-charcoal">Exhibition</h3>
+                            <p class="text-sm text-slate-500 leading-relaxed">태국 및 아세안 지역 100여 개 이상의 주요 MICE 기업 및 기관 전시</p>
+                        </div>
+                        <div class="bg-brand-600 text-white p-8 rounded-2xl shadow-xl relative overflow-hidden group">
+                            <div class="absolute -right-6 -top-6 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all"></div>
+                            <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center mb-6 backdrop-blur-sm"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div>
+                            <h3 class="font-bold text-lg mb-3">Business Matching</h3>
+                            <p class="text-sm text-white/90 leading-relaxed">사전 수요조사를 통한 태국 진성 바이어 및 파트너와의 1:1 비즈니스 상담</p>
+                        </div>
+                        <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100 hover:shadow-lg transition-all group">
+                            <div class="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6 text-brand-600 group-hover:scale-110 transition-transform"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg></div>
+                            <h3 class="font-bold text-lg mb-3 text-charcoal">Conference</h3>
+                            <p class="text-sm text-slate-500 leading-relaxed">글로벌 연사들이 참여하는 MICE 산업 최신 트렌드 및 지식 공유</p>
+                        </div>
+                        <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100 hover:shadow-lg transition-all group">
+                            <div class="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6 text-brand-600 group-hover:scale-110 transition-transform"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg></div>
+                            <h3 class="font-bold text-lg mb-3 text-charcoal">Networking</h3>
+                            <p class="text-sm text-slate-500 leading-relaxed">약 4,000명의 산업 관계자들과의 밀도 높은 네트워킹 이벤트</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Participation Info -->
+            <div class="bg-slate-50 border-t border-slate-200 py-20 px-4">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-2xl font-bold text-charcoal mb-8 text-center">개척단 참가 안내</h2>
+                    
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
+                            <div id="info-target" class="flex flex-col border-b border-slate-100 pb-4 md:border-0 md:pb-0">
+                                <span class="text-sm font-semibold text-slate-500 mb-1">모집 대상 및 규모</span>
+                                <span class="text-charcoal font-medium"></span>
+                            </div>
+                            <div id="info-deadline" class="flex flex-col border-b border-slate-100 pb-4 md:border-0 md:pb-0">
+                                <span class="text-sm font-semibold text-slate-500 mb-1">신청 마감</span>
+                                <span class="text-charcoal font-medium text-brand-600"></span>
+                            </div>
+                            <div class="flex flex-col border-b border-slate-100 pb-4 md:border-0 md:pb-0 md:col-span-2">
+                                <span class="text-sm font-semibold text-slate-500 mb-2">지원 내용</span>
+                                <ul class="space-y-2 text-sm text-charcoal" id="info-support">
+                                    <!-- Injected via JS -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50/50 rounded-xl p-5 border border-blue-100 flex items-start gap-4">
+                        <div class="mt-1 text-brand-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                        <div class="text-sm text-slate-700 leading-relaxed">
+                            <strong class="text-brand-900 block mb-1">참가기업 선정 관련 안내</strong>
+                            본 신청서는 참가 의향 및 수요조사를 위한 자료이며, 제출만으로 최종 참가가 확정되는 것은 아닙니다.<br>
+                            최종 참가기업은 관련 지원사업의 기준 및 절차에 따라 <span id="info-authority" class="font-semibold text-charcoal"></span>의 검토를 거쳐 선정될 예정입니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SURVEY FORM AREA -->
+        <!-- ========================================== -->
+        <div id="survey-area" class="hidden max-w-4xl mx-auto w-full px-4 py-8 md:py-12">
+            
+            <!-- Progress Tracker -->
+            <div class="mb-8 md:mb-12">
+                <div class="flex justify-between items-end mb-3">
+                    <div>
+                        <span id="step-indicator" class="text-xs font-bold text-brand-600 tracking-widest uppercase">STEP 01 OF 08</span>
+                        <h2 id="step-title" class="text-2xl font-bold text-charcoal mt-1">기업 기본정보</h2>
+                    </div>
+                    <span id="progress-text" class="text-sm font-bold text-slate-400">0%</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-2">
+                    <div id="progress-bar" class="bg-brand-500 h-2 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+                </div>
+                <!-- Data reset button -->
+                <div class="mt-3 text-right">
+                    <button type="button" onclick="resetForm()" class="text-xs text-slate-400 hover:text-red-500 underline decoration-slate-300 hover:decoration-red-300 underline-offset-2 transition-colors">새로 시작하기 (초기화)</button>
+                </div>
+            </div>
+
+            <!-- Error Banner -->
+            <div id="error-message" class="hidden mb-8 p-4 border-l-4 border-red-500 bg-red-50 rounded-r-lg shadow-sm animate-[fadeIn_0.3s_ease-out]" role="alert">
+                <div class="flex items-center gap-2 text-red-800 font-bold mb-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    입력 오류
+                </div>
+                <p class="text-sm text-red-700 ml-7">필수 항목이 누락되었거나 형식이 올바르지 않습니다. 빨간색으로 테두리 표시된 항목을 확인해주세요.</p>
+            </div>
+
+            <form id="survey-form" onsubmit="return false;">
+                
+                <!-- STEP 1: Basic Info -->
+                <div id="step-1" class="step-container">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                            <div>
+                                <label class="block text-sm font-semibold text-charcoal mb-2">회사명 <span class="text-red-500">*</span></label>
+                                <input type="text" name="company_name" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-charcoal mb-2">대표자명 <span class="text-red-500">*</span></label>
+                                <input type="text" name="representative_name" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-charcoal mb-2">담당자명 <span class="text-red-500">*</span></label>
+                                <input type="text" name="contact_name" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-charcoal mb-2">직책 <span class="text-red-500">*</span></label>
+                                <input type="text" name="position" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-charcoal mb-2">이메일 <span class="text-red-500">*</span></label>
+                                <input type="email" name="email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none transition-all" placeholder="example@email.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-charcoal mb-2">휴대전화 <span class="text-red-500">*</span></label>
+                                <input type="tel" name="phone" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none transition-all" placeholder="010-0000-0000">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-semibold text-charcoal mb-2">홈페이지</label>
+                                <input type="url" name="website" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none transition-all" placeholder="https://">
+                            </div>
+                        </div>
+
+                        <div class="mb-10">
+                            <div class="flex justify-between items-end mb-3">
+                                <label class="block text-sm font-semibold text-charcoal">주요 사업분야 <span class="text-slate-400 font-normal ml-1">(복수선택 가능)</span> <span class="text-red-500">*</span></label>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                <label class="cursor-pointer"><input type="checkbox" name="business_type" value="PCO" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium">PCO</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="business_type" value="PEO" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium">PEO</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="business_type" value="DMC" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium">DMC</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="business_type" value="Convention Center / Exhibition Venue" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium leading-tight h-full flex items-center justify-center">Convention Center<br>Exhibition Venue</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="business_type" value="Hotel" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium h-full flex items-center justify-center">Hotel</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="business_type" value="Unique Venue" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium h-full flex items-center justify-center">Unique Venue</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="business_type" value="Event / Exhibition Agency" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium leading-tight h-full flex items-center justify-center">Event / Exhibition<br>Agency</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="business_type" value="MICE Service" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium h-full flex items-center justify-center">MICE Service</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="business_type" value="MICE Technology" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium h-full flex items-center justify-center">MICE Technology</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="business_type" value="AV / Lighting / Staging" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium leading-tight h-full flex items-center justify-center">AV / Lighting<br>Staging</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="business_type" value="Tourism / Incentive" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium h-full flex items-center justify-center">Tourism / Incentive</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="business_type" value="Other" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium h-full flex items-center justify-center">Other</div></label>
+                            </div>
+                        </div>
+
+                        <div class="mb-10">
+                            <label class="block text-sm font-semibold text-charcoal mb-2">회사소개 <span class="text-red-500">*</span></label>
+                            <textarea name="company_description" required rows="3" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none transition-all resize-none" placeholder="간략한 회사 소개를 입력해주세요."></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-charcoal mb-3">해외사업 담당자 유무 <span class="text-red-500">*</span></label>
+                            <div class="flex gap-4">
+                                <label class="cursor-pointer flex-1"><input type="radio" name="overseas_staff" value="Yes" class="option-input sr-only"><div class="option-card px-4 py-3 rounded-xl text-center text-sm font-medium">있음</div></label>
+                                <label class="cursor-pointer flex-1"><input type="radio" name="overseas_staff" value="No" class="option-input sr-only"><div class="option-card px-4 py-3 rounded-xl text-center text-sm font-medium">없음</div></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Overseas Status -->
+                <div id="step-2" class="step-container">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-10">
+                        <div>
+                            <label class="block text-base font-semibold text-charcoal mb-4">1. 해외 MICE 사업 경험이 있으십니까? <span class="text-red-500">*</span></label>
+                            <div class="flex gap-4">
+                                <label class="cursor-pointer flex-1"><input type="radio" name="overseas_experience" value="Yes" class="option-input sr-only"><div class="option-card px-4 py-3.5 rounded-xl text-center text-sm font-medium">경험 있음</div></label>
+                                <label class="cursor-pointer flex-1"><input type="radio" name="overseas_experience" value="No" class="option-input sr-only"><div class="option-card px-4 py-3.5 rounded-xl text-center text-sm font-medium">없음</div></label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-base font-semibold text-charcoal mb-4">2. 태국 시장에서의 사업 경험이 있으십니까? <span class="text-red-500">*</span></label>
+                            <div class="flex gap-4">
+                                <label class="cursor-pointer flex-1"><input type="radio" name="thailand_experience" value="Yes" class="option-input sr-only"><div class="option-card px-4 py-3.5 rounded-xl text-center text-sm font-medium">경험 있음</div></label>
+                                <label class="cursor-pointer flex-1"><input type="radio" name="thailand_experience" value="No" class="option-input sr-only"><div class="option-card px-4 py-3.5 rounded-xl text-center text-sm font-medium">없음</div></label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-base font-semibold text-charcoal mb-4">3. 현재 태국 또는 동남아시아 기업/기관과의 협력 여부 <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <label class="cursor-pointer"><input type="radio" name="southeast_asia_cooperation" value="Currently Cooperating" class="option-input sr-only"><div class="option-card px-4 py-3.5 rounded-xl text-center text-sm font-medium">현재 협력 중</div></label>
+                                <label class="cursor-pointer"><input type="radio" name="southeast_asia_cooperation" value="Past Experience" class="option-input sr-only"><div class="option-card px-4 py-3.5 rounded-xl text-center text-sm font-medium">과거 협력 경험 있음</div></label>
+                                <label class="cursor-pointer"><input type="radio" name="southeast_asia_cooperation" value="No Experience" class="option-input sr-only"><div class="option-card px-4 py-3.5 rounded-xl text-center text-sm font-medium">협력 경험 없음</div></label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-base font-semibold text-charcoal mb-4">4. 향후 태국 MICE 시장 진출 의향은 어떠하십니까? <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <label class="cursor-pointer"><input type="radio" name="thailand_market_interest" value="Actively Desired" class="option-input sr-only"><div class="option-card px-4 py-3.5 rounded-xl text-center text-sm font-medium">적극적으로 희망</div></label>
+                                <label class="cursor-pointer"><input type="radio" name="thailand_market_interest" value="Interested" class="option-input sr-only"><div class="option-card px-4 py-3.5 rounded-xl text-center text-sm font-medium">관심 있음</div></label>
+                                <label class="cursor-pointer"><input type="radio" name="thailand_market_interest" value="Reviewing" class="option-input sr-only"><div class="option-card px-4 py-3.5 rounded-xl text-center text-sm font-medium">아직 검토 중</div></label>
+                                <label class="cursor-pointer"><input type="radio" name="thailand_market_interest" value="No Plan" class="option-input sr-only"><div class="option-card px-4 py-3.5 rounded-xl text-center text-sm font-medium">특별한 계획 없음</div></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Purpose -->
+                <div id="step-3" class="step-container">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10">
+                        <p class="text-sm text-slate-500 mb-6 font-medium">이번 TMX 2027에 참가하시려는 주된 목적을 선택해주세요. (복수 선택 가능) <span class="text-red-500">*</span></p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <label class="cursor-pointer flex"><input type="checkbox" name="tmx_participation_purpose" value="Business Matching" class="option-input sr-only"><div class="option-card w-full px-5 py-4 rounded-xl text-sm font-medium flex items-center justify-between">태국 MICE 기업과 Business Matching <span class="w-5 h-5 border border-slate-300 rounded flex items-center justify-center bg-white flex-shrink-0 ml-2 shadow-sm text-transparent">✓</span></div></label>
+                            <label class="cursor-pointer flex"><input type="checkbox" name="tmx_participation_purpose" value="Market Research" class="option-input sr-only"><div class="option-card w-full px-5 py-4 rounded-xl text-sm font-medium flex items-center justify-between">태국 MICE 시장조사 <span class="w-5 h-5 border border-slate-300 rounded flex items-center justify-center bg-white flex-shrink-0 ml-2 shadow-sm text-transparent">✓</span></div></label>
+                            <label class="cursor-pointer flex"><input type="checkbox" name="tmx_participation_purpose" value="Networking" class="option-input sr-only"><div class="option-card w-full px-5 py-4 rounded-xl text-sm font-medium flex items-center justify-between">현지 기업/기관 네트워크 구축 <span class="w-5 h-5 border border-slate-300 rounded flex items-center justify-center bg-white flex-shrink-0 ml-2 shadow-sm text-transparent">✓</span></div></label>
+                            <label class="cursor-pointer flex"><input type="checkbox" name="tmx_participation_purpose" value="New Clients" class="option-input sr-only"><div class="option-card w-full px-5 py-4 rounded-xl text-sm font-medium flex items-center justify-between">신규 거래처 발굴 <span class="w-5 h-5 border border-slate-300 rounded flex items-center justify-center bg-white flex-shrink-0 ml-2 shadow-sm text-transparent">✓</span></div></label>
+                            <label class="cursor-pointer flex"><input type="checkbox" name="tmx_participation_purpose" value="Joint Ventures" class="option-input sr-only"><div class="option-card w-full px-5 py-4 rounded-xl text-sm font-medium flex items-center justify-between">해외 공동사업 발굴 <span class="w-5 h-5 border border-slate-300 rounded flex items-center justify-center bg-white flex-shrink-0 ml-2 shadow-sm text-transparent">✓</span></div></label>
+                            <label class="cursor-pointer flex"><input type="checkbox" name="tmx_participation_purpose" value="Promotion" class="option-input sr-only"><div class="option-card w-full px-5 py-4 rounded-xl text-sm font-medium flex items-center justify-between">부산 MICE 상품/서비스 홍보 <span class="w-5 h-5 border border-slate-300 rounded flex items-center justify-center bg-white flex-shrink-0 ml-2 shadow-sm text-transparent">✓</span></div></label>
+                            <label class="cursor-pointer flex"><input type="checkbox" name="tmx_participation_purpose" value="Attracting to Busan" class="option-input sr-only"><div class="option-card w-full px-5 py-4 rounded-xl text-sm font-medium flex items-center justify-between">태국 기업의 부산 유치 <span class="w-5 h-5 border border-slate-300 rounded flex items-center justify-center bg-white flex-shrink-0 ml-2 shadow-sm text-transparent">✓</span></div></label>
+                            <label class="cursor-pointer flex"><input type="checkbox" name="tmx_participation_purpose" value="Event Attendance" class="option-input sr-only"><div class="option-card w-full px-5 py-4 rounded-xl text-sm font-medium flex items-center justify-between">태국 MICE 행사 참가 및 참관 <span class="w-5 h-5 border border-slate-300 rounded flex items-center justify-center bg-white flex-shrink-0 ml-2 shadow-sm text-transparent">✓</span></div></label>
+                            <label class="cursor-pointer flex"><input type="checkbox" name="tmx_participation_purpose" value="Other" class="option-input sr-only"><div class="option-card w-full px-5 py-4 rounded-xl text-sm font-medium flex items-center justify-between">기타 <span class="w-5 h-5 border border-slate-300 rounded flex items-center justify-center bg-white flex-shrink-0 ml-2 shadow-sm text-transparent">✓</span></div></label>
+                        </div>
+                        <style>
+                            .option-input:checked + .option-card span {
+                                background-color: var(--color-primary); border-color: var(--color-primary); color: white;
+                            }
+                        </style>
+                    </div>
+                </div>
+
+                <!-- STEP 4: Business Matching (Core) -->
+                <div id="step-4" class="step-container">
+                    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 md:p-8 mb-8 flex items-start gap-5 shadow-sm">
+                        <div class="w-10 h-10 bg-brand-600 text-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-brand-900 mb-2 text-lg">가장 중요한 단계입니다</h3>
+                            <p class="text-sm text-brand-800 leading-relaxed">이번 조사는 단순한 행사 참가 의향조사가 아니라, 태국 MICE 기업 및 기관과의 <strong>실질적인 비즈니스 매칭</strong>을 준비하기 위한 사전 수요조사입니다. 구체적으로 작성해 주실수록 적합한 파트너를 발굴할 확률이 높아집니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-10">
+                        <div>
+                            <label class="block text-base font-semibold text-charcoal mb-4">1. 태국에서 어떤 기업 또는 기관을 만나고 싶습니까? <span class="text-slate-400 text-sm font-normal ml-1">(복수선택)</span> <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <label class="cursor-pointer"><input type="checkbox" name="desired_partner_types" value="PCO" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium">PCO</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="desired_partner_types" value="PEO" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium">PEO</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="desired_partner_types" value="DMC" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium">DMC</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="desired_partner_types" value="Convention Center" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium leading-tight h-full flex items-center justify-center">Convention Center</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="desired_partner_types" value="Exhibition Venue" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium leading-tight h-full flex items-center justify-center">Exhibition Venue</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="desired_partner_types" value="Hotel" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium">Hotel</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="desired_partner_types" value="Unique Venue" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium leading-tight h-full flex items-center justify-center">Unique Venue</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="desired_partner_types" value="Event Agency" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium leading-tight h-full flex items-center justify-center">Event Agency</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="desired_partner_types" value="MICE Technology" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium leading-tight h-full flex items-center justify-center">MICE Technology</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="desired_partner_types" value="AV/Lighting/Staging" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium leading-tight h-full flex items-center justify-center">AV / Lighting / Staging</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="desired_partner_types" value="Tourism/Incentive" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium leading-tight h-full flex items-center justify-center">Tourism / Incentive</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="desired_partner_types" value="CVB/Government" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium leading-tight h-full flex items-center justify-center">CVB / Government</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="desired_partner_types" value="Travel Agency" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium leading-tight h-full flex items-center justify-center">Travel Agency</div></label>
+                                <label class="cursor-pointer"><input type="checkbox" name="desired_partner_types" value="Other" class="option-input sr-only"><div class="option-card px-3 py-3 rounded-xl text-sm text-center font-medium">Other</div></label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-charcoal mb-2">2. 만나고 싶은 특정 태국 기업 또는 기관명 <span class="text-slate-400 font-normal">(선택)</span></label>
+                            <input type="text" name="desired_thai_companies" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none transition-all" placeholder="예: TCEB, IMPACT, Centara Grand 등">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-charcoal mb-2">3. 희망하는 협력 분야 <span class="text-red-500">*</span></label>
+                            <textarea name="desired_cooperation" required rows="2" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none transition-all resize-none" placeholder="예: 공동 학술대회 유치, 인센티브 투어 현지 파트너십 구축 등"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-charcoal mb-2">4. 우리 회사가 태국 기업에게 제안하고 싶은 서비스/강점 <span class="text-red-500">*</span></label>
+                            <textarea name="proposed_services" required rows="2" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none transition-all resize-none" placeholder="자사가 제공할 수 있는 강점이나 비즈니스 제안을 기재해주세요."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-charcoal mb-2">5. 태국 기업으로부터 받고 싶은 서비스/역할 <span class="text-red-500">*</span></label>
+                            <textarea name="requested_services" required rows="2" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none transition-all resize-none" placeholder="현지 파트너에게 기대하는 역할이나 제공받고 싶은 솔루션을 기재해주세요."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-charcoal mb-2">6. Business Matching을 통해 기대하는 구체적 성과 <span class="text-red-500">*</span></label>
+                            <textarea name="expected_outcome" required rows="2" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none transition-all resize-none" placeholder="예: 양해각서(MOU) 체결, 연 2회 인센티브 교류, 현지 에이전트 계약 등"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 5: Site Visit -->
+                <div id="step-5" class="step-container">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10">
+                        <p class="text-sm text-slate-600 mb-6 font-medium leading-relaxed">
+                            태국 MICE 산업 및 비즈니스 환경을 벤치마킹하기 위해 방문을 희망하는 기관/시설을 선택해주세요.<br>
+                            단순 관광 목적이 아닌 산업시찰 관점에서 선택바랍니다. <span class="text-slate-400 font-normal">(복수선택 가능)</span> <span class="text-red-500">*</span>
+                        </p>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            <label class="cursor-pointer"><input type="checkbox" name="site_visit_interest" value="Convention Center" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-sm text-center font-medium">대형 컨벤션센터</div></label>
+                            <label class="cursor-pointer"><input type="checkbox" name="site_visit_interest" value="Exhibition Venue" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-sm text-center font-medium">전시장</div></label>
+                            <label class="cursor-pointer"><input type="checkbox" name="site_visit_interest" value="Hotel" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-sm text-center font-medium">호텔</div></label>
+                            <label class="cursor-pointer"><input type="checkbox" name="site_visit_interest" value="Unique Venue" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-sm text-center font-medium">Unique Venue</div></label>
+                            <label class="cursor-pointer"><input type="checkbox" name="site_visit_interest" value="PCO/PEO" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-sm text-center font-medium">PCO / PEO</div></label>
+                            <label class="cursor-pointer"><input type="checkbox" name="site_visit_interest" value="DMC" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-sm text-center font-medium">DMC</div></label>
+                            <label class="cursor-pointer"><input type="checkbox" name="site_visit_interest" value="Gov Agency" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-sm text-center font-medium">태국 MICE 관련 정부기관</div></label>
+                            <label class="cursor-pointer"><input type="checkbox" name="site_visit_interest" value="MICE Association" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-sm text-center font-medium">태국 MICE 협회</div></label>
+                            <label class="cursor-pointer"><input type="checkbox" name="site_visit_interest" value="Local MICE Company" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-sm text-center font-medium">현지 MICE 기업</div></label>
+                            <label class="cursor-pointer"><input type="checkbox" name="site_visit_interest" value="Tourism Agency" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-sm text-center font-medium">관광 관련 기관</div></label>
+                            <label class="cursor-pointer"><input type="checkbox" name="site_visit_interest" value="Other" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-sm text-center font-medium">기타</div></label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 6: English Business Profile -->
+                <div id="step-6" class="step-container">
+                    <div class="bg-charcoal text-white rounded-2xl p-6 md:p-8 mb-8 shadow-md relative overflow-hidden">
+                        <div class="absolute -right-10 -top-10 text-white/5">
+                            <svg class="w-48 h-48" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path></svg>
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="font-bold mb-2 text-xl flex items-center gap-2">
+                                <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                                English Business Profile
+                            </h3>
+                            <p class="text-sm text-slate-300 leading-relaxed max-w-2xl">태국 MICE 기업 및 기관과의 원활한 Business Matching을 위해 아래 정보를 <strong>영문으로 작성</strong>해주세요.<br>(향후 태국 측 파트너에게 전달될 공식 자료로 활용됩니다.)</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-8">
+                        <div>
+                            <label class="block text-sm font-semibold text-charcoal mb-2 font-sans">Company Name <span class="text-red-500">*</span></label>
+                            <input type="text" name="english_company_name" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 font-sans outline-none transition-all" placeholder="e.g., Busan MICE Solutions Co., Ltd.">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-charcoal mb-2 font-sans">Main Business <span class="text-red-500">*</span></label>
+                            <input type="text" name="english_main_business" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 font-sans outline-none transition-all" placeholder="e.g., Professional Congress Organizer (PCO), Destination Management">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-charcoal mb-2 font-sans">Company Introduction <span class="text-red-500">*</span></label>
+                            <textarea name="english_company_introduction" required rows="4" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 font-sans outline-none transition-all resize-none" placeholder="e.g., We are a leading PCO based in Busan, specialized in international medical conferences..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-charcoal mb-2 font-sans">Website <span class="text-slate-400 font-normal">(Optional)</span></label>
+                            <input type="url" name="english_website" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 font-sans outline-none transition-all" placeholder="https://">
+                        </div>
+                        <div class="pt-6 border-t border-slate-100">
+                            <label class="block text-sm font-semibold text-charcoal mb-2 font-sans">Desired Thai Partners <span class="text-red-500">*</span></label>
+                            <textarea name="english_desired_thai_partners" required rows="2" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 font-sans outline-none transition-all resize-none" placeholder="e.g., Local DMCs, Hotels with large conference facilities in Bangkok"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-charcoal mb-2 font-sans">Cooperation Proposal <span class="text-red-500">*</span></label>
+                            <p class="text-xs text-slate-500 mb-3 font-sans">Please describe what kind of business cooperation you would like to pursue with Thai MICE companies or organizations.</p>
+                            <textarea name="english_cooperation_proposal" required rows="4" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 font-sans outline-none transition-all resize-none" placeholder="e.g., We are looking for local partners to organize joint incentive tours and exchange VIP client networks..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 7: Preparation -->
+                <div id="step-7" class="step-container">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-8">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+                            <label class="text-base font-semibold text-charcoal">1. 영문 회사소개서 보유 여부 <span class="text-red-500">*</span></label>
+                            <div class="flex gap-2 md:w-1/3">
+                                <label class="cursor-pointer flex-1"><input type="radio" name="english_profile_available" value="Yes" class="option-input sr-only"><div class="option-card px-4 py-2.5 rounded-lg text-center text-sm font-medium">예</div></label>
+                                <label class="cursor-pointer flex-1"><input type="radio" name="english_profile_available" value="No" class="option-input sr-only"><div class="option-card px-4 py-2.5 rounded-lg text-center text-sm font-medium">아니오</div></label>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+                            <label class="text-base font-semibold text-charcoal">2. 영문 홈페이지 보유 여부 <span class="text-red-500">*</span></label>
+                            <div class="flex gap-2 md:w-1/3">
+                                <label class="cursor-pointer flex-1"><input type="radio" name="english_website_available" value="Yes" class="option-input sr-only"><div class="option-card px-4 py-2.5 rounded-lg text-center text-sm font-medium">예</div></label>
+                                <label class="cursor-pointer flex-1"><input type="radio" name="english_website_available" value="No" class="option-input sr-only"><div class="option-card px-4 py-2.5 rounded-lg text-center text-sm font-medium">아니오</div></label>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+                            <label class="text-base font-semibold text-charcoal">3. 영문 홍보자료(브로슈어 등) 보유 여부 <span class="text-red-500">*</span></label>
+                            <div class="flex gap-2 md:w-1/3">
+                                <label class="cursor-pointer flex-1"><input type="radio" name="english_promotional_material" value="Yes" class="option-input sr-only"><div class="option-card px-4 py-2.5 rounded-lg text-center text-sm font-medium">예</div></label>
+                                <label class="cursor-pointer flex-1"><input type="radio" name="english_promotional_material" value="No" class="option-input sr-only"><div class="option-card px-4 py-2.5 rounded-lg text-center text-sm font-medium">아니오</div></label>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+                            <label class="text-base font-semibold text-charcoal">4. 영어 Business Matching 직접 상담 가능 여부 <span class="text-red-500">*</span></label>
+                            <div class="flex gap-2 md:w-1/3">
+                                <label class="cursor-pointer flex-1"><input type="radio" name="english_consultation_available" value="Yes" class="option-input sr-only"><div class="option-card px-4 py-2.5 rounded-lg text-center text-sm font-medium">가능</div></label>
+                                <label class="cursor-pointer flex-1"><input type="radio" name="english_consultation_available" value="No" class="option-input sr-only"><div class="option-card px-4 py-2.5 rounded-lg text-center text-sm font-medium">불가능</div></label>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+                            <label class="text-base font-semibold text-charcoal">5. 현지 비즈니스 통역 지원 필요 여부 <span class="text-red-500">*</span></label>
+                            <div class="flex gap-2 md:w-1/3">
+                                <label class="cursor-pointer flex-1"><input type="radio" name="interpreter_needed" value="Yes" class="option-input sr-only"><div class="option-card px-4 py-2.5 rounded-lg text-center text-sm font-medium">필요함</div></label>
+                                <label class="cursor-pointer flex-1"><input type="radio" name="interpreter_needed" value="No" class="option-input sr-only"><div class="option-card px-4 py-2.5 rounded-lg text-center text-sm font-medium">필요없음</div></label>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <label class="text-base font-semibold text-charcoal">6. 태국 현지 기업과 사전 Business Matching 희망 여부 <span class="text-red-500">*</span></label>
+                            <div class="flex gap-2 md:w-1/3">
+                                <label class="cursor-pointer flex-1"><input type="radio" name="pre_arranged_business_matching" value="Yes" class="option-input sr-only"><div class="option-card px-4 py-2.5 rounded-lg text-center text-sm font-medium">희망함</div></label>
+                                <label class="cursor-pointer flex-1"><input type="radio" name="pre_arranged_business_matching" value="No" class="option-input sr-only"><div class="option-card px-4 py-2.5 rounded-lg text-center text-sm font-medium">희망안함</div></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 8: Intention -->
+                <div id="step-8" class="step-container">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-10">
+                        <div>
+                            <label class="block text-base font-bold text-charcoal mb-4">1. Thailand MICE X-Change 2027 해외시장개척단 참가 의향 <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <label class="cursor-pointer"><input type="radio" name="participation_intention" value="Yes" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-center font-bold text-sm">참가를 희망함</div></label>
+                                <label class="cursor-pointer"><input type="radio" name="participation_intention" value="Conditional" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-center font-bold text-sm">조건에 따라 참가 검토</div></label>
+                                <label class="cursor-pointer"><input type="radio" name="participation_intention" value="Undecided" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-center font-bold text-sm">아직 결정하지 않음</div></label>
+                                <label class="cursor-pointer"><input type="radio" name="participation_intention" value="No" class="option-input sr-only"><div class="option-card px-4 py-4 rounded-xl text-center font-bold text-sm text-slate-500">참가 의향 없음</div></label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-charcoal mb-2">2. 예상 참가 인원 (명) <span class="text-red-500">*</span></label>
+                            <input type="number" name="expected_participants" required min="0" class="w-full md:w-1/3 px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-charcoal mb-2">3. 해외시장개척단 참가 시 가장 중요하게 생각하는 지원사항 <span class="text-red-500">*</span></label>
+                            <input type="text" name="important_support" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none transition-all" placeholder="예: 항공료 지원, 바이어 매칭 주선, 현지 통역 등">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-charcoal mb-2">4. 기타 의견 (선택)</label>
+                            <textarea name="additional_comments" rows="3" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none transition-all resize-none" placeholder="협회에 바라는 점이나 궁금한 사항을 자유롭게 적어주세요."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PREVIEW SECTION -->
+                <div id="step-preview" class="step-container hidden">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10 mb-8">
+                        <div class="flex items-center justify-between mb-8 pb-5 border-b border-slate-200">
+                            <h2 class="text-2xl font-bold text-charcoal flex items-center gap-2">
+                                <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                최종 확인 (Review)
+                            </h2>
+                        </div>
+                        
+                        <div id="preview-content" class="space-y-6 mb-10">
+                            <!-- JS generates preview cards here -->
+                        </div>
+
+                        <div class="bg-brand-50 p-5 rounded-xl border border-brand-200">
+                            <label class="flex items-start md:items-center gap-3 cursor-pointer">
+                                <div class="mt-0.5 md:mt-0 relative flex items-center justify-center">
+                                    <input type="checkbox" id="confirm-review" class="w-6 h-6 text-brand-600 rounded border-slate-300 focus:ring-brand-500 appearance-none bg-white checked:bg-brand-600 checked:border-brand-600 transition-colors">
+                                    <svg class="w-4 h-4 text-white absolute pointer-events-none opacity-0 check-icon transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="font-bold text-brand-900 text-lg">입력한 내용이 정확함을 확인했습니다.</span>
+                            </label>
+                            <style>
+                                #confirm-review:checked + .check-icon { opacity: 1; }
+                            </style>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUCCESS SECTION -->
+                <div id="step-success" class="step-container hidden">
+                    <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-10 md:p-16 text-center max-w-2xl mx-auto">
+                        <div class="w-20 h-20 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center mx-auto mb-8 relative">
+                            <div class="absolute inset-0 bg-brand-100 rounded-full animate-ping opacity-20"></div>
+                            <svg class="w-10 h-10 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-charcoal mb-4">참가 수요조사가 완료되었습니다.</h2>
+                        <p class="text-slate-600 mb-8 leading-relaxed">
+                            제출해주신 내용은 BCIA 미래전략위원회의 TMX 2027 해외시장개척단 참가기업 검토 및 태국 MICE 기업과의 Business Matching 준비를 위해 귀중하게 활용됩니다.<br><br>
+                            <span class="text-sm bg-slate-50 px-4 py-3 rounded-lg border border-slate-100 inline-block text-slate-500">
+                                최종 참가기업은 관련 지원사업의 기준 및 절차에 따라 <strong id="success-authority" class="text-charcoal font-semibold"></strong>의 검토를 거쳐 선정될 예정입니다.
+                            </span>
+                        </p>
+                        <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <button type="button" onclick="goToStep('preview')" class="px-6 py-3 border border-slate-300 text-charcoal font-medium rounded-xl hover:bg-slate-50 transition-all">
+                                입력내용 다시 확인
+                            </button>
+                            <button type="button" onclick="location.reload()" class="px-6 py-3 bg-charcoal text-white font-medium rounded-xl hover:bg-slate-800 shadow transition-all">
+                                처음으로
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons (Desktop & Mobile) -->
+                <div id="nav-buttons" class="hidden flex justify-between items-center mt-8 mobile-floating-nav">
+                    <button type="button" id="btn-prev" onclick="goToPrevStep()" class="px-6 py-3 border border-slate-300 text-charcoal font-medium rounded-xl hover:bg-slate-50 transition-all hidden">
+                        이전 단계
+                    </button>
+                    <div class="flex-grow"></div>
+                    <button type="button" id="btn-next" onclick="goToNextStep()" class="px-8 py-3 bg-charcoal text-white font-bold rounded-xl hover:bg-slate-800 shadow-md transition-all flex items-center gap-2">
+                        다음 단계 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                    <button type="button" id="btn-submit" onclick="submitForm()" class="px-8 py-3 bg-brand-600 text-white font-bold rounded-xl hover:bg-brand-700 shadow-lg shadow-brand-500/30 transition-all hidden disabled:opacity-50 disabled:cursor-not-allowed">
+                        최종 제출하기
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- ADMIN VIEW PROTOTYPE -->
+    <!-- ========================================== -->
+    <main id="admin-view" class="view-container bg-slate-100 flex-grow w-full pb-12">
+        
+        <div class="bg-charcoal text-white">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div class="text-xs font-bold tracking-widest text-brand-400 mb-1">ADMINISTRATOR</div>
+                <h1 class="text-2xl font-bold">TMX 2027 BCIA Delegation Management</h1>
+            </div>
+            <div class="max-w-7xl mx-auto px-4 flex gap-8 border-t border-white/10">
+                <button onclick="switchAdminTab('dashboard')" id="tab-dashboard" class="py-4 border-b-2 border-brand-400 text-brand-400 font-bold transition-colors">Dashboard</button>
+                <button onclick="switchAdminTab('matching')" id="tab-matching" class="py-4 border-b-2 border-transparent text-slate-400 hover:text-white transition-colors">Business Matching</button>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 mt-8">
+            <!-- Dashboard Tab -->
+            <div id="admin-dashboard" class="space-y-6">
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-wide">전체 신청기업</div>
+                        <div class="text-3xl font-extrabold text-charcoal" id="stat-total">0</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-wide">참가 희망</div>
+                        <div class="text-3xl font-extrabold text-brand-600" id="stat-yes">0</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-wide">조건부 검토</div>
+                        <div class="text-3xl font-extrabold text-amber-500" id="stat-cond">0</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-wide">미정/기타</div>
+                        <div class="text-3xl font-extrabold text-slate-500" id="stat-tbd">0</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-wide">태국 진출 경험</div>
+                        <div class="text-3xl font-extrabold text-charcoal" id="stat-exp">0</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-wide">Biz Match 희망</div>
+                        <div class="text-3xl font-extrabold text-indigo-600" id="stat-biz">0</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-wide">산업시찰 희망</div>
+                        <div class="text-3xl font-extrabold text-emerald-600" id="stat-site">0</div>
+                    </div>
+                </div>
+
+                <!-- Filters & Table -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-4 border-b border-slate-200 bg-slate-50 grid grid-cols-2 md:grid-cols-6 gap-3">
+                        <select id="filter-biz-type" onchange="renderAdminTable()" class="text-xs border-slate-300 rounded bg-white py-2 px-2 outline-none font-medium text-slate-700">
+                            <option value="">사업분야 전체</option>
+                            <option value="PCO">PCO</option>
+                            <option value="DMC">DMC</option>
+                            <option value="Convention Center / Exhibition Venue">Venue</option>
+                        </select>
+                        <select id="filter-thai-exp" onchange="renderAdminTable()" class="text-xs border-slate-300 rounded bg-white py-2 px-2 outline-none font-medium text-slate-700">
+                            <option value="">태국 사업 경험</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <select id="filter-thai-interest" onchange="renderAdminTable()" class="text-xs border-slate-300 rounded bg-white py-2 px-2 outline-none font-medium text-slate-700">
+                            <option value="">태국 진출 의향</option>
+                            <option value="Actively Desired">적극적 희망</option>
+                            <option value="Interested">관심 있음</option>
+                        </select>
+                        <select id="filter-match-type" onchange="renderAdminTable()" class="text-xs border-slate-300 rounded bg-white py-2 px-2 outline-none font-medium text-slate-700">
+                            <option value="">Biz Match 분야</option>
+                            <option value="DMC">DMC</option>
+                            <option value="Hotel">Hotel</option>
+                        </select>
+                        <select id="filter-site-type" onchange="renderAdminTable()" class="text-xs border-slate-300 rounded bg-white py-2 px-2 outline-none font-medium text-slate-700">
+                            <option value="">산업시찰 분야</option>
+                            <option value="Convention Center">Convention Center</option>
+                        </select>
+                        <select id="filter-intention" onchange="renderAdminTable()" class="text-xs border-slate-300 rounded bg-white py-2 px-2 outline-none font-medium text-slate-700">
+                            <option value="">참가 의향 전체</option>
+                            <option value="Yes">Yes</option>
+                            <option value="Conditional">Conditional</option>
+                        </select>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 text-slate-500 border-b border-slate-200 text-xs uppercase tracking-wider font-bold">
+                                <tr>
+                                    <th class="py-4 px-5">회사명</th>
+                                    <th class="py-4 px-5">사업분야</th>
+                                    <th class="py-4 px-5 text-center">태국 경험</th>
+                                    <th class="py-4 px-5">진출 의향</th>
+                                    <th class="py-4 px-5">Business Matching</th>
+                                    <th class="py-4 px-5 text-center">참가 의향</th>
+                                    <th class="py-4 px-5 text-right">Data</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-table-body" class="divide-y divide-slate-100">
+                                <!-- JS populates rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matching Tab -->
+            <div id="admin-matching" class="hidden flex flex-col gap-6">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                    <h2 class="text-lg font-bold text-charcoal mb-4">부산 참가기업 희망 파트너 집계 (Aggregated Demand)</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4" id="match-aggregation">
+                        <!-- JS populated -->
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-6 h-[600px]">
+                    <!-- Busan Companies -->
+                    <div class="flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col overflow-hidden">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 font-bold text-charcoal flex justify-between items-center">
+                            <span>Busan Delegation</span>
+                            <span class="text-xs font-normal text-slate-500" id="busan-count">0</span>
+                        </div>
+                        <div class="overflow-y-auto p-4 space-y-3 bg-slate-50/50 flex-grow" id="match-busan-list">
+                            <!-- JS populated -->
+                        </div>
+                    </div>
+                    
+                    <!-- Matching Indicator (Visual) -->
+                    <div class="hidden md:flex flex-col justify-center items-center text-slate-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                    </div>
+
+                    <!-- Thai Companies (Mock DB) -->
+                    <div class="flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col overflow-hidden">
+                        <div class="p-4 bg-brand-50 border-b border-brand-100 font-bold text-brand-900 flex justify-between items-center">
+                            <span>Thai Partners (Mock DB)</span>
+                        </div>
+                        <div class="overflow-y-auto p-4 space-y-3 bg-brand-50/20 flex-grow" id="match-thai-list">
+                            <!-- JS populated -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Admin Profile Modal -->
+    <div id="profile-modal" class="hidden fixed inset-0 bg-slate-900/60 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+            <div class="p-5 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                <h3 class="font-bold text-xl text-charcoal" id="modal-title">Business Profile</h3>
+                <div class="flex gap-3">
+                    <button id="btn-download-json" class="text-xs font-bold text-brand-600 bg-brand-50 px-3 py-1.5 rounded hover:bg-brand-100 transition-colors">JSON 다운로드</button>
+                    <button onclick="closeModal()" class="text-slate-400 hover:text-slate-700"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                </div>
+            </div>
+            <div class="p-6 overflow-y-auto text-sm space-y-6" id="modal-content">
+                <!-- Data goes here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. State Management ---
+        const TOTAL_STEPS = 8;
+        let currentStep = 0; // 0 = Landing, 1-8 = Form, 'preview' = Review, 'success' = Done
+        let surveyData = {};
+        let isAdminMode = false;
+        let currentModalData = null; // For JSON download
+
+        const STORAGE_KEY = 'bcia_tmx2027_v3';
+        
+        // --- 2. Initial Setup ---
+        window.onload = function() {
+            applyConfig();
+            loadFromLocalStorage();
+            
+            // Auto-save bindings
+            document.querySelectorAll('input, textarea, select').forEach(input => {
+                input.addEventListener('change', () => {
+                    if (typeof currentStep === 'number' && currentStep > 0 && currentStep <= TOTAL_STEPS) {
+                        collectData();
+                        saveToLocalStorage();
+                    }
+                });
+            });
+
+            // Confirm checkbox binding for Review page
+            const confirmCheckbox = document.getElementById('confirm-review');
+            const submitBtn = document.getElementById('btn-submit');
+            if(confirmCheckbox && submitBtn) {
+                confirmCheckbox.addEventListener('change', (e) => {
+                    submitBtn.disabled = !e.target.checked;
+                });
+            }
+        };
+
+        function applyConfig() {
+            // Apply landing page config
+            document.getElementById('info-target').querySelector('.text-charcoal').innerText = `${CONFIG.targetCompanies}개사 내외 (${CONFIG.applicationType})`;
+            document.getElementById('info-deadline').querySelector('.text-brand-600').innerText = CONFIG.applicationDeadline || '추후 공지 (TBD)';
+            document.getElementById('info-authority').innerText = CONFIG.selectionAuthority;
+            document.getElementById('success-authority').innerText = CONFIG.selectionAuthority;
+
+            const supportList = document.getElementById('info-support');
+            supportList.innerHTML = `
+                <li>• <strong>항공:</strong> ${CONFIG.airfareSupport}</li>
+                <li>• <strong>숙박:</strong> ${CONFIG.accommodationSupport}</li>
+                <li>• <strong>교통:</strong> 현지 이동 ${CONFIG.localTransportationSupport}</li>
+                <li>• <strong>비용:</strong> ${CONFIG.selfPaymentRequired}</li>
+            `;
+        }
+
+        // --- 3. View & UI Navigation ---
+        function goToStep(step) {
+            if (typeof step === 'number' && step > 0 && step <= TOTAL_STEPS && !validateCurrentStep()) {
+                showError();
+                return;
+            }
+            if (typeof currentStep === 'number' && currentStep > 0 && currentStep <= TOTAL_STEPS) {
+                collectData(); // Save before moving
+            }
+
+            currentStep = step;
+            updateUI();
+        }
+
+        function goToNextStep() {
+            if (validateCurrentStep()) {
+                collectData();
+                saveToLocalStorage();
+                if (currentStep === TOTAL_STEPS) {
+                    currentStep = 'preview';
+                } else {
+                    currentStep++;
+                }
+                updateUI();
+            } else {
+                showError();
+            }
+        }
+
+        function goToPrevStep() {
+            if (currentStep === 'preview') {
+                currentStep = TOTAL_STEPS;
+            } else if (currentStep > 1) {
+                currentStep--;
+            }
+            updateUI();
+        }
+
+        const stepTitles = [
+            "", "기업 기본정보", "해외시장 진출 현황", "TMX 2027 참가 목적", "Business Matching 수요",
+            "태국 MICE 산업시찰 수요", "English Business Profile", "참가 준비사항", "참가 의향 확인"
+        ];
+
+        function updateUI() {
+            // Hide all user view containers
+            document.querySelectorAll('.step-container').forEach(el => el.classList.remove('active', 'hidden'));
+            document.querySelectorAll('.step-container').forEach(el => {
+                if(el.id !== `step-${currentStep}`) el.classList.add('hidden');
+            });
+
+            const currentContainer = document.getElementById(`step-${currentStep}`);
+            if(currentContainer) {
+                currentContainer.classList.remove('hidden');
+                // slight delay for animation
+                setTimeout(() => currentContainer.classList.add('active'), 10);
+            }
+
+            const surveyArea = document.getElementById('survey-area');
+            const navButtons = document.getElementById('nav-buttons');
+            const progressTracker = document.getElementById('step-indicator').parentElement.parentElement;
+            
+            document.getElementById('error-message').classList.add('hidden');
+
+            if (currentStep === 0 || currentStep === 'success') {
+                surveyArea.classList.toggle('hidden', currentStep === 0);
+                navButtons.classList.add('hidden');
+                progressTracker.classList.add('hidden');
+            } else {
+                surveyArea.classList.remove('hidden');
+                navButtons.classList.remove('hidden');
+                progressTracker.classList.remove('hidden');
+                
+                // Update Progress
+                let progressRatio = 100;
+                if (typeof currentStep === 'number') {
+                    progressRatio = ((currentStep - 1) / TOTAL_STEPS) * 100;
+                    document.getElementById('step-indicator').innerText = `STEP ${String(currentStep).padStart(2, '0')} OF ${String(TOTAL_STEPS).padStart(2, '0')}`;
+                    document.getElementById('step-title').innerText = stepTitles[currentStep];
+                } else if (currentStep === 'preview') {
+                    document.getElementById('step-indicator').innerText = 'FINAL STEP';
+                    document.getElementById('step-title').innerText = '최종 확인 및 제출';
+                }
+                
+                document.getElementById('progress-bar').style.width = `${progressRatio}%`;
+                document.getElementById('progress-text').innerText = `${Math.round(progressRatio)}%`;
+
+                // Button toggles
+                document.getElementById('btn-prev').classList.toggle('hidden', currentStep === 1);
+                
+                if (currentStep === 'preview') {
+                    document.getElementById('btn-next').classList.add('hidden');
+                    document.getElementById('btn-submit').classList.remove('hidden');
+                    document.getElementById('btn-submit').disabled = !document.getElementById('confirm-review').checked;
+                    renderPreviewData();
+                } else {
+                    document.getElementById('btn-next').classList.remove('hidden');
+                    document.getElementById('btn-submit').classList.add('hidden');
+                }
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- 4. Form Validation & Data Collection ---
+        function validateCurrentStep() {
+            if (currentStep === 'preview' || currentStep === 'success' || currentStep === 0) return true;
+            
+            const stepEl = document.getElementById(`step-${currentStep}`);
+            if (!stepEl) return true;
+
+            const requiredInputs = stepEl.querySelectorAll('[required]');
+            let isValid = true;
+
+            // Texts/Number/Emails
+            requiredInputs.forEach(input => {
+                if (input.type !== 'radio' && input.type !== 'checkbox') {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        input.classList.add('border-red-500', 'bg-red-50');
+                    } else {
+                        input.classList.remove('border-red-500', 'bg-red-50');
+                    }
+                }
+            });
+
+            // Radios (Must have one checked per name if required by context. Assuming all radio groups on a step are required.)
+            const radioGroups = new Set();
+            stepEl.querySelectorAll('input[type="radio"]').forEach(r => radioGroups.add(r.name));
+            radioGroups.forEach(name => {
+                const radios = stepEl.querySelectorAll(`input[name="${name}"]`);
+                if(radios.length > 0 && !Array.from(radios).some(r => r.checked)) isValid = false;
+            });
+
+            // Checkboxes (At least one must be checked for groups on the step)
+            const checkboxGroups = new Set();
+            stepEl.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                if(cb.id !== 'confirm-review') checkboxGroups.add(cb.name);
+            });
+            checkboxGroups.forEach(name => {
+                const cbs = stepEl.querySelectorAll(`input[name="${name}"]`);
+                if(cbs.length > 0 && !Array.from(cbs).some(cb => cb.checked)) isValid = false;
+            });
+
+            return isValid;
+        }
+
+        function showError() {
+            document.getElementById('error-message').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => { document.getElementById('error-message').classList.add('hidden'); }, 4000);
+        }
+
+        function collectData() {
+            const formData = new FormData(document.getElementById('survey-form'));
+            surveyData = {};
+            
+            for (let [key, value] of formData.entries()) {
+                if(key === 'confirm-review') continue;
+                
+                if (surveyData[key]) {
+                    if (!Array.isArray(surveyData[key])) surveyData[key] = [surveyData[key]];
+                    surveyData[key].push(value);
+                } else {
+                    const multiSelects = ['business_type', 'tmx_participation_purpose', 'desired_partner_types', 'site_visit_interest'];
+                    if (multiSelects.includes(key)) surveyData[key] = [value];
+                    else surveyData[key] = value;
+                }
+            }
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(surveyData));
+        }
+
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    surveyData = JSON.parse(saved);
+                    Object.keys(surveyData).forEach(key => {
+                        const value = surveyData[key];
+                        const inputs = document.querySelectorAll(`[name="${key}"]`);
+                        if (inputs.length === 0) return;
+
+                        if (inputs[0].type === 'radio') {
+                            inputs.forEach(input => { if (input.value === value) input.checked = true; });
+                        } else if (inputs[0].type === 'checkbox') {
+                            const vals = Array.isArray(value) ? value : [value];
+                            inputs.forEach(input => { if (vals.includes(input.value)) input.checked = true; });
+                        } else {
+                            inputs[0].value = value;
+                        }
+                    });
+                } catch(e) { console.error("Data load error", e); }
+            }
+        }
+
+        function resetForm() {
+            if(confirm("입력한 모든 데이터가 삭제됩니다. 새로 시작하시겠습니까?")) {
+                localStorage.removeItem(STORAGE_KEY);
+                location.reload();
+            }
+        }
+
+        // --- 5. Preview & Submit ---
+        function renderPreviewData() {
+            const container = document.getElementById('preview-content');
+            
+            const sections = [
+                { title: "STEP 1. 기업 기본정보", step: 1, keys: ['company_name', 'representative_name', 'contact_name', 'email', 'phone', 'business_type'] },
+                { title: "STEP 4. Business Matching 수요", step: 4, keys: ['desired_partner_types', 'desired_cooperation', 'proposed_services', 'requested_services', 'expected_outcome'] },
+                { title: "STEP 5. 산업시찰 수요", step: 5, keys: ['site_visit_interest'] },
+                { title: "STEP 6. English Business Profile", step: 6, keys: ['english_company_name', 'english_main_business', 'english_desired_thai_partners', 'english_cooperation_proposal'] },
+                { title: "STEP 8. 최종 참가 의향", step: 8, keys: ['participation_intention', 'expected_participants', 'important_support'] }
+            ];
+
+            const keyLabels = {
+                company_name: "회사명", representative_name: "대표자명", contact_name: "담당자", email: "이메일", phone: "연락처", business_type: "사업분야",
+                desired_partner_types: "희망 파트너 유형", desired_cooperation: "희망 협력 분야",
+                proposed_services: "당사 제안 내용", requested_services: "요구 서비스", expected_outcome: "기대 성과",
+                site_visit_interest: "산업시찰 희망", 
+                english_company_name: "Company Name", english_main_business: "Main Business", english_desired_thai_partners: "Desired Partners", english_cooperation_proposal: "Coop. Proposal",
+                participation_intention: "참가 의향", expected_participants: "예상 인원", important_support: "중요 지원사항"
+            };
+
+            let html = '';
+            sections.forEach(sec => {
+                html += `
+                    <div class="border border-slate-200 rounded-xl overflow-hidden">
+                        <div class="bg-slate-50 px-5 py-3 border-b border-slate-200 flex justify-between items-center">
+                            <h3 class="font-bold text-charcoal text-sm">${sec.title}</h3>
+                            <button type="button" onclick="goToStep(${sec.step})" class="text-xs font-bold text-brand-600 bg-white border border-slate-200 px-3 py-1.5 rounded hover:bg-brand-50 transition-colors">수정하기</button>
+                        </div>
+                        <div class="p-5 space-y-4 bg-white">
+                `;
+                
+                sec.keys.forEach(k => {
+                    let val = surveyData[k];
+                    if (Array.isArray(val)) val = val.join(', ');
+                    if (!val) val = '<span class="text-slate-300 font-normal italic">미입력</span>';
+                    
+                    html += `
+                        <div class="flex flex-col sm:flex-row gap-1 sm:gap-4 border-b border-slate-50 pb-3 last:border-0 last:pb-0">
+                            <span class="text-sm text-slate-500 font-semibold sm:w-1/4 shrink-0">${keyLabels[k]}</span>
+                            <span class="text-sm text-charcoal sm:w-3/4 leading-relaxed">${val}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div></div>`;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        async function submitData(data) {
+            // Future Google Apps Script endpoint hook
+            console.log("=== SUBMITTING JSON TO GOOGLE SHEETS (MOCK) ===");
+            console.log(JSON.stringify(data, null, 2));
+            return new Promise(resolve => setTimeout(resolve, 800)); // mock delay
+        }
+
+        async function submitForm() {
+            const btn = document.getElementById('btn-submit');
+            btn.innerText = "제출 중...";
+            btn.disabled = true;
+
+            const finalData = {
+                ...surveyData,
+                timestamp: new Date().toISOString()
+            };
+
+            await submitData(finalData);
+
+            // Add to mock admin data for demo purposes
+            mockAdminData.unshift({...finalData, id: Date.now()}); 
+            
+            localStorage.removeItem(STORAGE_KEY);
+            currentStep = 'success';
+            updateUI();
+        }
+
+        // --- 6. Admin System Logic (Prototype) ---
+        let mockAdminData = [];
+        
+        function generateMockData() {
+            mockAdminData = [
+                { id: 1, company_name: "(주)글로벌마이스", business_type: ["PCO", "DMC"], participation_intention: "Yes", thailand_experience: "Yes", thailand_market_interest: "Actively Desired", desired_partner_types: ["Convention Center", "Hotel"], site_visit_interest: ["Convention Center", "Gov Agency"], english_company_name: "Global MICE Co.", english_cooperation_proposal: "Looking for local DMCs to co-host incentive tours." },
+                { id: 2, company_name: "부산이벤트테크", business_type: ["MICE Technology", "AV / Lighting / Staging"], participation_intention: "Conditional", thailand_experience: "No", thailand_market_interest: "Interested", desired_partner_types: ["PCO", "PEO", "Event Agency"], site_visit_interest: ["Exhibition Venue"], english_company_name: "Busan Event Tech", english_cooperation_proposal: "Provide registration system tech to Thai PCOs." },
+                { id: 3, company_name: "센텀투어리즘", business_type: ["Tourism / Incentive", "DMC"], participation_intention: "Yes", thailand_experience: "Yes", thailand_market_interest: "Actively Desired", desired_partner_types: ["Travel Agency", "Hotel"], site_visit_interest: ["Unique Venue", "Hotel"], english_company_name: "Centum Tourism", english_cooperation_proposal: "Exchange of VIP tour packages." },
+                { id: 4, company_name: "MICE에이전시", business_type: ["Event / Exhibition Agency"], participation_intention: "Undecided", thailand_experience: "No", thailand_market_interest: "Reviewing", desired_partner_types: ["DMC"], site_visit_interest: ["Local MICE Company"], english_company_name: "MICE Agency Korea", english_cooperation_proposal: "Seeking ground operators." }
+            ];
+        }
+
+        const mockThaiCompanies = [
+            { name: "IMPACT Exhibition Management", type: "Convention Center", seeking: ["PCO", "PEO", "Event Agency"], location: "Bangkok" },
+            { name: "Siam DMC Masters", type: "DMC", seeking: ["Tourism / Incentive", "PCO"], location: "Bangkok/Phuket" },
+            { name: "Thai MICE Tech Solutions", type: "MICE Technology", seeking: ["Event Agency", "Convention Center"], location: "Bangkok" },
+            { name: "Centara Grand Hotels", type: "Hotel", seeking: ["DMC", "Tourism / Incentive", "PCO"], location: "Nationwide" }
+        ];
+
+        function toggleAdminMode() {
+            isAdminMode = !isAdminMode;
+            document.getElementById('user-view').classList.toggle('active', !isAdminMode);
+            document.getElementById('user-view').classList.toggle('hidden', isAdminMode);
+            
+            const adminView = document.getElementById('admin-view');
+            if (isAdminMode) {
+                adminView.classList.remove('hidden');
+                setTimeout(() => adminView.classList.add('active'), 10);
+                if(mockAdminData.length === 0) generateMockData();
+                renderAdminDashboard();
+                renderMatchingView();
+            } else {
+                adminView.classList.remove('active');
+                setTimeout(() => adminView.classList.add('hidden'), 400);
+            }
+        }
+
+        function switchAdminTab(tab) {
+            const tDash = document.getElementById('tab-dashboard');
+            const tMatch = document.getElementById('tab-matching');
+            
+            if(tab === 'dashboard') {
+                tDash.className = "py-4 border-b-2 border-brand-400 text-brand-400 font-bold transition-colors";
+                tMatch.className = "py-4 border-b-2 border-transparent text-slate-400 hover:text-white transition-colors";
+            } else {
+                tMatch.className = "py-4 border-b-2 border-brand-400 text-brand-400 font-bold transition-colors";
+                tDash.className = "py-4 border-b-2 border-transparent text-slate-400 hover:text-white transition-colors";
+            }
+
+            document.getElementById('admin-dashboard').classList.toggle('hidden', tab !== 'dashboard');
+            document.getElementById('admin-matching').classList.toggle('hidden', tab !== 'matching');
+        }
+
+        function renderAdminDashboard() {
+            document.getElementById('stat-total').innerText = mockAdminData.length;
+            document.getElementById('stat-yes').innerText = mockAdminData.filter(d => d.participation_intention === 'Yes').length;
+            document.getElementById('stat-cond').innerText = mockAdminData.filter(d => d.participation_intention === 'Conditional').length;
+            document.getElementById('stat-tbd').innerText = mockAdminData.filter(d => d.participation_intention === 'Undecided' || d.participation_intention === 'No').length;
+            document.getElementById('stat-exp').innerText = mockAdminData.filter(d => d.thailand_experience === 'Yes').length;
+            document.getElementById('stat-biz').innerText = mockAdminData.filter(d => d.desired_partner_types && d.desired_partner_types.length > 0).length;
+            document.getElementById('stat-site').innerText = mockAdminData.filter(d => d.site_visit_interest && d.site_visit_interest.length > 0).length;
+            
+            renderAdminTable();
+        }
+
+        function renderAdminTable() {
+            const tBody = document.getElementById('admin-table-body');
+            
+            const filters = {
+                type: document.getElementById('filter-biz-type').value,
+                exp: document.getElementById('filter-thai-exp').value,
+                interest: document.getElementById('filter-thai-interest').value,
+                match: document.getElementById('filter-match-type').value,
+                site: document.getElementById('filter-site-type').value,
+                intention: document.getElementById('filter-intention').value
+            };
+
+            const filtered = mockAdminData.filter(d => {
+                if (filters.type && !(d.business_type || []).includes(filters.type)) return false;
+                if (filters.exp && d.thailand_experience !== filters.exp) return false;
+                if (filters.interest && d.thailand_market_interest !== filters.interest) return false;
+                if (filters.match && !(d.desired_partner_types || []).includes(filters.match)) return false;
+                if (filters.site && !(d.site_visit_interest || []).includes(filters.site)) return false;
+                if (filters.intention && d.participation_intention !== filters.intention) return false;
+                return true;
+            });
+
+            tBody.innerHTML = filtered.map(d => `
+                <tr class="hover:bg-brand-50/50 transition-colors border-b border-slate-100 last:border-0">
+                    <td class="py-4 px-5 font-bold text-charcoal">${d.company_name}</td>
+                    <td class="py-4 px-5 text-slate-600 max-w-[150px] truncate">${(d.business_type||[]).join(', ')}</td>
+                    <td class="py-4 px-5 text-center"><span class="px-2.5 py-1 text-xs rounded-md ${d.thailand_experience==='Yes' ? 'bg-charcoal text-white' : 'bg-slate-100 text-slate-500'}">${d.thailand_experience || '-'}</span></td>
+                    <td class="py-4 px-5 text-slate-600">${d.thailand_market_interest === 'Actively Desired' ? '적극적' : (d.thailand_market_interest === 'Interested' ? '관심' : '검토/미정')}</td>
+                    <td class="py-4 px-5 text-xs text-brand-700 truncate max-w-[200px] font-medium">${(d.desired_partner_types||[]).join(', ')}</td>
+                    <td class="py-4 px-5 text-center"><span class="px-2.5 py-1 text-xs font-bold rounded-md ${d.participation_intention==='Yes' ? 'bg-brand-100 text-brand-700' : 'bg-slate-100 text-slate-600'}">${d.participation_intention || 'N/A'}</span></td>
+                    <td class="py-4 px-5 text-right">
+                        <button onclick='openModal(${JSON.stringify(d).replace(/'/g, "&#39;")})' class="text-brand-600 hover:text-brand-800 font-bold text-xs bg-brand-50 px-3 py-1.5 rounded hover:bg-brand-100 transition-colors">Profile</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderMatchingView() {
+            // Aggregate Demand
+            const demandCounts = {};
+            mockAdminData.forEach(d => {
+                if(d.desired_partner_types) {
+                    d.desired_partner_types.forEach(t => {
+                        demandCounts[t] = (demandCounts[t] || 0) + 1;
+                    });
+                }
+            });
+
+            const aggContainer = document.getElementById('match-aggregation');
+            aggContainer.innerHTML = Object.entries(demandCounts)
+                .sort((a,b) => b[1] - a[1])
+                .map(([type, count]) => `
+                    <div class="bg-brand-50 p-3 rounded-xl border border-brand-100 flex flex-col items-center justify-center text-center h-24">
+                        <span class="text-2xl font-black text-brand-700 mb-1">${count}</span>
+                        <span class="text-xs font-bold text-brand-900 leading-tight">${type}</span>
+                    </div>
+                `).join('');
+
+            // Render Busan List
+            document.getElementById('busan-count').innerText = `${mockAdminData.length} Companies`;
+            document.getElementById('match-busan-list').innerHTML = mockAdminData.map(d => `
+                <div class="bg-white p-4 border border-slate-200 rounded-xl hover:border-brand-300 hover:shadow-md transition-all cursor-pointer group" onclick='openModal(${JSON.stringify(d).replace(/'/g, "&#39;")})'>
+                    <div class="flex justify-between items-start mb-1">
+                        <div class="font-bold text-charcoal text-sm">${d.company_name}</div>
+                        <span class="text-[10px] font-bold text-white bg-charcoal px-2 py-0.5 rounded">${d.participation_intention}</span>
+                    </div>
+                    <div class="text-xs text-slate-500 mb-3">${(d.business_type||[]).join(', ')}</div>
+                    <div class="bg-slate-50 p-2 rounded-lg border border-slate-100">
+                        <div class="text-[10px] font-bold text-brand-600 mb-1 uppercase">Seeking Partners:</div>
+                        <div class="flex flex-wrap gap-1">
+                            ${(d.desired_partner_types||[]).map(p => `<span class="px-1.5 py-0.5 bg-white border border-slate-200 text-slate-600 rounded text-[10px] group-hover:border-brand-200 group-hover:text-brand-700">${p}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Render Thai List (Mock)
+            document.getElementById('match-thai-list').innerHTML = mockThaiCompanies.map(t => `
+                <div class="bg-white p-4 border border-brand-100 rounded-xl hover:border-brand-300 hover:shadow-md transition-all cursor-pointer group">
+                    <div class="flex justify-between items-start mb-1">
+                        <div class="font-bold text-brand-900 text-sm">${t.name}</div>
+                    </div>
+                    <div class="text-xs font-bold text-brand-600 mb-3">${t.type} <span class="text-slate-400 font-normal ml-1">| ${t.location}</span></div>
+                    <div class="bg-brand-50/50 p-2 rounded-lg border border-brand-50">
+                        <div class="text-[10px] font-bold text-charcoal mb-1 uppercase">Looking to meet:</div>
+                        <div class="flex flex-wrap gap-1">
+                            ${t.seeking.map(s => `<span class="px-1.5 py-0.5 bg-white border border-brand-100 text-brand-700 rounded text-[10px]">${s}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openModal(data) {
+            currentModalData = data;
+            const modal = document.getElementById('profile-modal');
+            const content = document.getElementById('modal-content');
+            
+            // Re-order and group for profile view
+            const groups = [
+                { title: "Basic Info", keys: ['company_name', 'representative_name', 'contact_name', 'email', 'phone', 'business_type'] },
+                { title: "English Profile", keys: ['english_company_name', 'english_main_business', 'english_company_introduction', 'english_desired_thai_partners', 'english_cooperation_proposal'] },
+                { title: "Matching Demand", keys: ['desired_partner_types', 'desired_cooperation', 'proposed_services', 'requested_services'] },
+                { title: "Admin Info", keys: ['participation_intention', 'thailand_experience', 'site_visit_interest'] }
+            ];
+
+            let html = '';
+            groups.forEach(g => {
+                html += `<div class="mb-6 last:mb-0">
+                    <h4 class="text-xs font-bold text-brand-600 uppercase tracking-widest border-b border-slate-200 pb-2 mb-3">${g.title}</h4>
+                    <div class="grid grid-cols-1 gap-y-3">`;
+                
+                g.keys.forEach(k => {
+                    let val = data[k];
+                    if(val === undefined) return;
+                    if(Array.isArray(val)) val = val.join(', ');
+                    
+                    html += `
+                        <div class="flex flex-col">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">${k.replace(/_/g, ' ')}</span>
+                            <span class="text-sm text-charcoal font-medium mt-0.5 leading-relaxed bg-slate-50 p-2 rounded border border-slate-100">${val}</span>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+            });
+            
+            content.innerHTML = html;
+            modal.classList.remove('hidden');
+
+            document.getElementById('btn-download-json').onclick = () => {
+                downloadJSON(currentModalData, `BCIA_TMX2027_application_${currentModalData.company_name || 'unknown'}.json`);
+            };
+        }
+
+        function closeModal() {
+            document.getElementById('profile-modal').classList.add('hidden');
+        }
+
+        function downloadJSON(obj, filename) {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj, null, 2));
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", dataStr);
+            dlAnchorElem.setAttribute("download", filename);
+            dlAnchorElem.click();
+        }
+    </script>
+</body>
+</html>
